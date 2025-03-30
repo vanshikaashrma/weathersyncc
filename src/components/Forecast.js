@@ -9,9 +9,16 @@ function Forecast({ weather }) {
 
   useEffect(() => {
     const fetchForecastData = async () => {
+      console.log("API Key:", process.env.REACT_APP_WEATHER_API_KEY); // Debugging
       const apiKey = process.env.REACT_APP_WEATHER_API_KEY;
+  
+      if (!apiKey) {
+        console.error("API Key is missing!");
+        return;
+      }
+  
       const url = `https://api.openweathermap.org/data/2.5/forecast?q=${data.name}&appid=${apiKey}&units=metric`;
-
+  
       try {
         const response = await axios.get(url);
         const dailyForecast = response.data.list.filter((_, index) => index % 8 === 0);
@@ -20,11 +27,12 @@ function Forecast({ weather }) {
         console.error("Error fetching forecast data:", error);
       }
     };
-
+  
     if (data.name) {
       fetchForecastData();
     }
   }, [data.name]);
+  
 
   const toggleTemperatureUnit = () => {
     setIsCelsius((prevState) => !prevState);

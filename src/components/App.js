@@ -41,9 +41,17 @@ function App() {
 
   const fetchWeather = async (city) => {
     setWeather({ ...weather, loading: true });
+  
     const apiKey = process.env.REACT_APP_WEATHER_API_KEY;
+    
+    if (!apiKey) {
+      console.error("API Key is missing! Check your environment variables.");
+      setWeather({ ...weather, data: {}, error: true });
+      return;
+    }
+  
     const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
-
+  
     try {
       const res = await axios.get(url);
       setWeather({ data: res.data, loading: false, error: false });
@@ -52,6 +60,7 @@ function App() {
       console.error("Error fetching weather data:", error);
     }
   };
+  
 
   const search = (event) => {
     event.preventDefault();
