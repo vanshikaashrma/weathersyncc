@@ -1,4 +1,4 @@
-
+![Image](https://github.com/user-attachments/assets/57112402-3d04-4f58-a2f4-4cb2e7047358)
 # Features
 - Users can search for weather conditions of any city in the world.
 - The app displays the current weather conditions, including temperature and weather description.
